@@ -1,0 +1,100 @@
+Need to install Linux Bash and Ubuntu on Windows. Windows has a special system to do run it. Follow: 
+
+https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/
+
+The file system is weird. File Explorer won't see the Ubuntu home folder in file explorer. Have to feel out what can be run from the Ubuntu/linux shell and what can't. There might also be two versions of software running so check versions when necessary.
+
+To get access to local files start up windows command line and type wsl and hit return. It will bring you to /mnt/c/Users/me_the_user
+More:
+https://www.howtogeek.com/344688/how-to-set-your-default-linux-distribution-on-windows-10/
+However:
+***Use the Ubuntu shell instead of the windows command line as the later will throw all kinds of access errors. Work in tlarson@LAPTOP-DAD:~$ not in tlarson@LAPTOP-DAD:/mnt/c/Users/Lars2-Daddy$ (the latter route is called when you use the wsl command in windows command line). If you are getting permission errors, this is probably the problem.
+
+To access the Ubuntu/Linux tlarson@LAPTOP-DAD:~$ directory in Windows File Manager (to copy and paste files, etc), goto:
+
+C:\Users\Lars2-Daddy\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\tlarson
+
+Create a file system with mkdir so that there is a bin folder and a projects folder under your home dir: tlarson@LAPTOP-DAD:~$.
+
+To run symfony projects in this Ubuntu/Linux environment, You'll need to install php first, then composer.
+
+Then to load php into the Linux environment:
+
+sudo add-apt-repository ppa:ondrej/php
+sudo apt-get update && sudo apt-get upgrade
+sudo apt-get install php-fpm php-mysql php7.1-cli php7.1-curl php7.1-mbstring php7.1-mcrypt php7.1-xml php7.1-zip php7.1-intl curl git unzip php-cli
+
+check if php installed: php -v
+---------------------------------------------------------
+To install composer:
+curl -sS https://getcomposer.org/installer | php
+
+then 
+
+mv ~/composer.phar ~/bin/composer
+
+(or you can try this command:
+cd ~ 
+curl -sS https://getcomposer.org/installer -o composer-setup.php 
+sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+)
+
+test with composer -v
+--------------------------------------------
+git needs to be installed so check with: git --version
+if it isn't, install using apt
+
+---------------------------------
+To ssh using a config file in the ~/.ssh folder:
+First create your key pairs and make sure you've installed the public on your host server (where ever that is).
+Good Instructions are here: https://github.com/EasyCorp/easy-deploy-bundle/blob/master/doc/tutorials/remote-code-cloning.md#deploy-keys
+ 
+Create the file with 600 permission:
+touch ~/.ssh/config && chmod 600 ~/.ssh/config
+Add more permissions:
+chmod 700 ~/.ssh/config
+Goto to ~/.ssh and run 
+vi config
+Using vi, add in the host information:
+for ssh link example: ssh john@dev.example.com -p 2322, the config file would have:
+
+Host dev
+    HostName dev.example.com
+    User john
+    Port 2322
+
+-------------------
+
+***Read/Write permission issues with WSL: 
+If you edit a WSL Linux file with a windows program, you change its meta permissions.
+Maybe a fix:
+sudo umount /mnt/c
+sudo mount -t drvfs C: /mnt/c -o metadata
+
+Otherwise, search the internet for solution. ***Edit with vi or get a linux program to edit.
+-------------------------------------
+***Copy files to WSL from Windows.
+You can use windows file explorer to move the files. However, you won't be able to see the file afterwards until you restart the WSL service. To restart, exit out of Ubuntu bash, goto windows services gui and restart LxssManager. Go back into Bash and you should see the file.
+
+--------------------------------------------------
+
+If you want a full development environment check out these instructions:
+https://blog.devsense.com/2018/04/wsl
+
+Add composer to the environment:
+(from environment root)
+curl -sS https://getcomposer.org/installer | php
+sudo mv composer.phar Documents/WSL/bin/composer
+(or you can just curl it into the bin folder directly, but the above also changes the name too)
+
+Check if composer is installed: composer about or composer -V
+
+Install bitbucket ssh key pairs using instructions here:
+https://github.com/EasyCorp/easy-deploy-bundle/blob/master/doc/tutorials/remote-code-cloning.md#deploy-keys
+(while written for another purpose, the instructions works fine for this). The .ssh folder is in: 
+
+C:\Users\Lars2-Daddy\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\tlarson\.ssh
+
+and all the calls from Ubuntu shell should use this as default.
+
+
