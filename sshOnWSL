@@ -1,0 +1,25 @@
+To ssh using a config file in the ~/.ssh folder:
+First create your key pairs and make sure you've installed the public on your host server (where ever that is).
+Good Instructions are here: https://github.com/EasyCorp/easy-deploy-bundle/blob/master/doc/tutorials/remote-code-cloning.md#deploy-keys
+ 
+Create the file with 600 permission:
+touch ~/.ssh/config && chmod 600 ~/.ssh/config
+Add more permissions:
+chmod 700 ~/.ssh/config
+Goto to ~/.ssh and run 
+vi config
+Using vi, add in the host information:
+for ssh link example: ssh john@dev.example.com -p 2322, the config file would have:
+
+Host dev
+    HostName dev.example.com
+    User john
+    Port 2322
+
+Install bitbucket ssh key pairs using instructions here:
+https://github.com/EasyCorp/easy-deploy-bundle/blob/master/doc/tutorials/remote-code-cloning.md#deploy-keys
+(while written for another purpose, the instructions works fine for this). The .ssh folder is in: 
+
+C:\Users\Lars2-Daddy\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\tlarson\.ssh
+
+and all the calls from Ubuntu shell should use this as default.
