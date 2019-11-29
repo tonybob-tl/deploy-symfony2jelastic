@@ -3,4 +3,5 @@ EasyDeployBundle customized default deployer to deploy Symfony 4+ projects to Je
 
 Please see [Instruction and wiki](https://github.com/tlarsonlgdor/deploy-symfony2jelastic/wiki#install-instructions).
 
-Note: EasyDeployBundle does not handle deploys from local Windows operating systems to Linux Server systems. The remote commands will fail because EasyDeployBundle reads what the local operating system is and uses those commands and directory syntax when creating its remote commands. This is the case for Jelasic's PHP/Apache environment. Therefore, if you operate on a windows system, you'll need to install Windows Subsystem for Linux or WSL and then Ubuntu or similar. Instructions exist all over the place. You'll need to clone your project using Ubuntu bash (or similar) and use composer to build it locally.  
+If you find this useful, please consider donating to LGDOR and Leominster Coding Academy! 
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](YOUR_EMAIL_CODE)
