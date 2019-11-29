@@ -4,4 +4,4 @@ EasyDeployBundle customized default deployer to deploy Symfony 4+ projects to Je
 Please see [Instruction and wiki](https://github.com/tlarsonlgdor/deploy-symfony2jelastic/wiki#install-instructions).
 
 If you find this useful, please consider donating to LGDOR and Leominster Coding Academy! 
-[Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DTW94RY6F5QKG&source=url)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DTW94RY6F5QKG&source=url)
