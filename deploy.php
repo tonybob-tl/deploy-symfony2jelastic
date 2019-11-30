@@ -107,7 +107,7 @@ return new class extends DefaultDeployer
         
         //Scheduleamap specific rearranging (to get rid of all the unnecessary subprojects)
         //Includes the .env movement
-        if ($isSymfonySubDirectory){
+        if ($this->isSymfonySubDirectory){
             $this->runRemote('if [ -d {{ deploy_dir }}/repo{{ relativePathToSymfonyProject }} ]; then mkdir {{ deploy_dir }}/purgatory && cp -RPp {{ deploy_dir }}/repo{{ relativePathToSymfonyProject }}/. {{ deploy_dir }}/purgatory && rm -r {{ deploy_dir }}/repo/* && rm -r {{ project_dir }}/* && cp -RPp {{ deploy_dir }}/purgatory/. {{ deploy_dir }}/repo && cp -RPp {{ deploy_dir }}/purgatory/* {{ project_dir }} && cp -RPp {{ deploy_dir }}/purgatory/.env {{ project_dir }}/ && rm -r {{ deploy_dir }}/purgatory; fi');
 
             $this->runRemote('cd {{ deploy_dir }}/repo && ls -a');
