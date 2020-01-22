@@ -35,7 +35,7 @@ return new class extends DefaultDeployer
     //SYMFONY AS SUBPROJECT OR IN SUBDIRECTORY Of GIT REPO
     //If your symfony project is in a subdirectory of your git repository, indicate true for $isSymfonySubDirectory and add relative path
     //When true, after the git clone, this deployer will get rid of unneeded git folders and leave only symfony project as a root
-    private $isSymfonySubDirectory ="true";
+    private $isSymfonySubDirectory =false;
     //This is relative to git repository root. Include leading slash but don't include trailing slash in the path...
     private $relativePathToSymfonyProject="/yoursymfonyprojectfolder";
     
@@ -48,7 +48,7 @@ return new class extends DefaultDeployer
     //WEBPACK ENCORE DEPLOY LOCAL TO REMOTE 
     //Note: this requires rsync to transfer the built files.
     //Requires yarn to be installed with webpack encore for Symfony
-    private $isWebPackProject="true";
+    private $isWebPackProject=false;
     private $localBuildFileToXFer="/home/username/path/to/local/public/build";
     //This route is relative to the repo, release folder, and current folder on the remote server. During the deploy process, it will be added after repo is updated, but before release is copied into current     .
     //Include leading slash but don't include trailing slash in the path...
