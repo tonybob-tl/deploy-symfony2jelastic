@@ -112,11 +112,9 @@ return new class extends DefaultDeployer
 
             $this->runRemote('cd {{ deploy_dir }}/repo && ls -a');
             $this->runRemote('ls -a');
+        } else {
+            $this->runRemote('cp -RPp {{ deploy_dir }}/repo/.env {{ project_dir }}/');
         }
-        
-        
-        //Move the .env file to the project_dir for the composer install and to run composer dump-env prod 
-        //$this->runRemote('cp -RPp {{ deploy_dir }}/repo/.env {{ project_dir }}/');
         
         //Add Webpack Encore Production build for front end...
         if ($this->isWebPackProject){
