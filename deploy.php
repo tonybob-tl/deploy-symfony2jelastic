@@ -21,7 +21,7 @@ return new class extends DefaultDeployer
     //Make sure you load the public key on Jelastic via its dashboard interface. 
     //A good set of instructions can be found at: https://confluence.atlassian.com/bitbucket/set-up-an-ssh-key-728138079.html and https://confluence.atlassian.com/bitbucket/set-up-additional-ssh-keys-271943168.html (if you want to make a bunch of keys for different servers). 
     private $SSHKeyPath="/home/username/.ssh/id_rsa"; //This probably isn't needed as .ssh/id_rsa is usually default
-    private $useSSHAgentForwarding="false"; //False here because a SSH key needs to be made on Jelastic and used to access Bitbucket repo (can't forward the keys from the local computer). See https://github.com/EasyCorp/easy-deploy-bundle/blob/master/doc/tutorials/remote-code-cloning.md#deploy-keys and https://docs.jelastic.com/git-ssh
+    private $useSSHAgentForwarding=false; //False here because a SSH key needs to be made on Jelastic and used to access Bitbucket repo (can't forward the keys from the local computer). See https://github.com/EasyCorp/easy-deploy-bundle/blob/master/doc/tutorials/remote-code-cloning.md#deploy-keys and https://docs.jelastic.com/git-ssh
     
     //ADD MORE Properties if more servers are involved and use to make another server below in getConfigBuilder.
     
