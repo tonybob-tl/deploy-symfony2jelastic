@@ -27,6 +27,7 @@ return new class extends DefaultDeployer
     
     //REMOTE DIRECTORIES
     private $DeployDir="/var/www/webroot";//This is probably the directory that you need to load all the folders in. Public directory is empty. You need to configure httpd.conf for Apache node on Jelastic so that it points to the /var/www/webroot/current folder. See Readme.
+    private $LogDirectoryPath="/var/www/webroot/apachelogs"; //This is the path name for the logging directory. !IMPORTANT: This path name needs to match the directory indicated for the ErrorLog and CustomLog indicated in the VirtualHost of the httpd.conf.
     
     //GIT REPOSITORIES
     private $repositoryURL="git@bitbucket.org:yourrepo.git";//SSH address from bitbucket or github account. git and clone commands are added auto.
@@ -64,7 +65,8 @@ return new class extends DefaultDeployer
                 'SSHPort' => $this->SSHPort,
                 'SSHKeyPath' => $this->SSHKeyPath,
                 'remoteRelativePathToBuildDir' => isset($this->remoteRelativePathToBuildDir)?$this->remoteRelativePathToBuildDir : "",
-                'relativePathToSymfonyProject' => isset($this->isSymfonySubDirectory)?$this->relativePathToSymfonyProject : ""
+                'relativePathToSymfonyProject' => isset($this->isSymfonySubDirectory)?$this->relativePathToSymfonyProject : "",
+                'logDirectoryPath' => $this->$LogDirectoryPath
                 ])
                 
             // the absolute path of the remote server directory where the project is deployed
@@ -132,6 +134,8 @@ return new class extends DefaultDeployer
             //The copy/symlink to current folder should be automatic after this.
             
         } 
+        //Add the log file directory 
+        $this->runRemote('mkdir -p {{'logDirectoryPath'}});
         
     }
     
