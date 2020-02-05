@@ -135,7 +135,7 @@ return new class extends DefaultDeployer
             
         } 
         //Add the log file directory 
-        $this->runRemote('mkdir -p {{'logDirectoryPath'}});
+        $this->runRemote('mkdir -p {{ logDirectoryPath }}');
         
     }
     
