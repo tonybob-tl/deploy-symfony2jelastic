@@ -66,7 +66,7 @@ return new class extends DefaultDeployer
                 'SSHKeyPath' => $this->SSHKeyPath,
                 'remoteRelativePathToBuildDir' => isset($this->remoteRelativePathToBuildDir)?$this->remoteRelativePathToBuildDir : "",
                 'relativePathToSymfonyProject' => isset($this->isSymfonySubDirectory)?$this->relativePathToSymfonyProject : "",
-                'logDirectoryPath' => $this->$LogDirectoryPath
+                'logDirectoryPath' => $this->LogDirectoryPath
                 ])
                 
             // the absolute path of the remote server directory where the project is deployed
