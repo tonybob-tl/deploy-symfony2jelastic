@@ -43,7 +43,7 @@ return new class extends DefaultDeployer
     
     //COMPOSER
     private $remoteComposerPath="composer"; //Just the command cause it is automatically included globally when you install php/apache environment on Jelastic
-    private $updateRemoteComposer=false; //Do you want to do a composer self update before doing the install? Default is false cause Jelastic doesn't allow writeable access to the folder that the globally installed composer is in. You'll probably have to update the environment to get an updated version of the globally installed composer. 
+    private $updateRemoteComposer=false; //Do you want to do a composer self update before doing the install? True tends to cause problems on Jelastic. See notes above in $remoteComposerPath. Jelastic may not give you root access to composer selfupdate if you are using the version of composer that originally comes with the php environment.
     private $composerInstallFlags="--no-dev --prefer-dist --no-interaction --no-scripts --verbose"; //Flags used when running composer install
     private $composerOptimizeFlags="--optimize --verbose"; //Flags used when running composer optimization
     
