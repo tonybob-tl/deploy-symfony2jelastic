@@ -7,6 +7,7 @@ return new class extends DefaultDeployer
     //SSH PROPERTIES (they are included here as private class properties instead of in the getConfigBuilder cause rsync may need them before config is built).
     //Note: Easy Deploy does not work between Windows and Linux operating systems. Windows - Windows is fine. Linux - Linux is fine. Just no mixing. If Windows is the local operating system, you'll have to use Windows Subsystem for Linux and Ubuntu or something similar. You'll need to build the environment there first and run deploys from there. 
     //Note: if problems with ssh or rsync, make sure port 22 is open. Many firewalls block it.
+    //Note: if problems occur with chained ssh keys to repo, make sure your Jelastic environment has been white listed. For example, for Bitbucket, you must run the command: ssh bitbucket.org in the Jelastic SSH terminal after you create the keys so bitbucket is also added to the .ssh/known_hosts file. See: https://stackoverflow.com/questions/40576718/bitbucket-host-key-verification-failed
     //These class variables are necessary whenever the sprintf and rsync command is used.
     //If these class variables are also included in the server properties arrays for each server in getConfigBuilder, then they can be accessed using the {{ property }} call. Those calls are used for the runLocal runRemote commands.
     //Example sprintf used to move a composer.phar (just example of file move): 
@@ -42,7 +43,7 @@ return new class extends DefaultDeployer
     
     //COMPOSER
     private $remoteComposerPath="composer"; //Just the command cause it is automatically included globally when you install php/apache environment on Jelastic
-    private $updateRemoteComposer=true; //Do you want to do a composer self update before doing the install?
+    private $updateRemoteComposer=false; //Do you want to do a composer self update before doing the install? Default is false cause Jelastic doesn't allow writeable access to the folder that the globally installed composer is in. You'll probably have to update the environment to get an updated version of the globally installed composer. 
     private $composerInstallFlags="--no-dev --prefer-dist --no-interaction --no-scripts --verbose"; //Flags used when running composer install
     private $composerOptimizeFlags="--optimize --verbose"; //Flags used when running composer optimization
     
