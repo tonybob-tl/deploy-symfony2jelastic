@@ -49,8 +49,11 @@ return new class extends DefaultDeployer
     
     //WEBPACK ENCORE DEPLOY LOCAL TO REMOTE 
     //Note: this requires rsync to transfer the built files.
-    //Requires yarn to be installed with webpack encore for Symfony
+    //Requires npm to be installed with webpack encore for Symfony
+    //Make sure you add: process.env.NODE_ENV = Encore.isProduction() ? 'production' : 'development'; right after require's in webpack.config.js - it will read Encore state and set NODE_ENV to match
     private $isWebPackProject=false;
+    //Provide the name of the npm production build scipt (i.e., the name of the script in the"scripts" section of package.json)
+    private $nameOfNPMProductionScript="build";
     private $localBuildFileToXFer="/home/username/path/to/local/public/build";
     //This route is relative to the repo, release folder, and current folder on the remote server. During the deploy process, it will be added after repo is updated, but before release is copied into current     .
     //Include leading slash but don't include trailing slash in the path...
@@ -67,7 +70,7 @@ return new class extends DefaultDeployer
                 'SSHKeyPath' => $this->SSHKeyPath,
                 'remoteRelativePathToBuildDir' => isset($this->remoteRelativePathToBuildDir)?$this->remoteRelativePathToBuildDir : "",
                 'relativePathToSymfonyProject' => isset($this->isSymfonySubDirectory)?$this->relativePathToSymfonyProject : "",
-                'logDirectoryPath' => $this->LogDirectoryPath
+                'nameOfNPMProductionScript' => isset($this->nameOfNPMProductionScript)?$this->nameOfNPMProductionScript : ""
                 ])
                 
             // the absolute path of the remote server directory where the project is deployed
@@ -95,9 +98,8 @@ return new class extends DefaultDeployer
         if ($this->isWebPackProject){
             //build webpack encore production
             $this->log("Doing local Webpack Encore production build.");
-            //Make sure you add: process.env.NODE_ENV = Encore.isProduction() ? 'production' : 'development'; 
-            //Right after require's in webpack.config.js - it will read Encore state and set NODE_ENV to match
-            $this->runLocal('NODE_ENV=production yarn encore production --progress');
+            
+            $this->runLocal(sprintf('npm run %s', $this->nameOfNPMProductionScript));
             $this->log("Webpack Encore production build complete.");
         }
         // $this->runLocal('./vendor/bin/simple-phpunit');
